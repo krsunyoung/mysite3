@@ -19,15 +19,16 @@ public class ModifyFormAction implements Action {
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		
-//		UserVo userVo = new UserDao().get(authUser.getNo());
-		UserVo userVo = new UserVo();
+		UserVo userVo = new UserDao().get(authUser.getNo());
+		
+		
+		/*UserVo userVo = new UserVo();
 		
 		userVo.setNo(10L);
 		userVo.setName("sun");
 		userVo.setGender("male");
 		userVo.setEmail("aa@naver.com");
-		
-		
+		*/
 		request.setAttribute("userVo", userVo);
 		
 		WebUtil.redirect(request, response, "/mysite3/main");

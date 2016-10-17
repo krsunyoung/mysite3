@@ -31,11 +31,12 @@ public class UserDao {
 			conn = getConnection();
 			String sql ="update users set name = ? and gender = ? where email=?";
 			pstmt = conn.prepareStatement(sql);
-//			
-////***************************************************************************
-//			
-//			
-//			result = pstmt.executeUpdate();
+			
+			pstmt.setString(1, vo.getName()	);
+			pstmt.setString(2, vo.getGender());
+			pstmt.setString(3, vo.getEmail());
+			
+			result = pstmt.executeUpdate();
 			
 		}catch(SQLException e){
 			System.out.println("error : "+e);
