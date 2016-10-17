@@ -105,7 +105,54 @@ public class UserDao {
 	}
 	//회원정보 수정
 	public UserVo get(Long no){
+		Connection conn = null;
+		PreparedStatement pstmt=null;
+		ResultSet rs = null;
 		UserVo vo = null;
+		try {
+			conn = getConnection();
+			String sql = "select no, name, email, gender from users where no= ?";
+			
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, no);
+			
+			rs=pstmt.executeQuery();
+			
+			if( rs.next()){
+//				long no1 = rs.getLong(1);
+				String name = rs.getString(2);
+				String email = rs.getString(3);
+				String gender = rs.getString(4);
+				
+				vo = new UserVo();
+				vo.setNo(no);
+				vo.setName(name);
+				vo.setEmail(email);
+				vo.setGender(gender);
+				
+							
+				System.out.println();
+			}
+		} catch (SQLException e) {
+			System.out.println("error :" + e);
+		} finally{
+			try{
+				
+				if(rs !=null){
+					rs.close();
+				}
+				if(pstmt !=null){
+					pstmt.close();
+				}
+				if(conn !=null){
+					conn.close();
+				}
+			}catch(SQLException e){
+				System.out.println("error :" + e);
+				
+			}
+		}
 		
 		
 		return vo;

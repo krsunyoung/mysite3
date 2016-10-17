@@ -17,7 +17,7 @@
 			<div id="user">
 
 				<form id="join-form" name="modifyform" method="post" action="/mysite3/user">
-					<input type="hidden" name ="a" value="modifyform"/>
+					<input type="hidden" name ="a" value="modify"/>
 					<input type="hidden" name = "no" value = "<%=userVo.getNo()%>"/>
 					<label class="block-label" for="name">이름</label>
 					<input id="name" name="name" type="text" value="<%=userVo.getName()%>"/>
