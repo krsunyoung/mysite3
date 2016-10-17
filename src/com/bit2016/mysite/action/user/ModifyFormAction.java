@@ -20,10 +20,10 @@ public class ModifyFormAction implements Action {
 		
 		UserVo userVo = new UserDao().get(authUser.getNo());
 		
-		userVo.getNo();
+		/*userVo.getNo();
 		userVo.getEmail();
 		userVo.getGender();
-		userVo.getName();
+		userVo.getName();*/
 		
 //		UserVo userVo = new UserVo();
 //		userVo.setName(name);
