@@ -16,11 +16,11 @@
 		<div id="content">
 			<div id="user">
 
-				<form id="join-form" name="modifyform" method="post" action="/mysite3/userm?a=modifyform">
+				<form id="join-form" name="modifyform" method="post" action="/mysite3/user">
 					<input type="hidden" name ="a" value="modifyform"/>
 					<input type="hidden" name = "no" value = "<%=userVo.getNo()%>"/>
 					<label class="block-label" for="name">이름</label>
-					<input id="name" name="name" type="text" value="<%=userVo.getName()%>">
+					<input id="name" name="name" type="text" value="<%=userVo.getName()%>"/>
 
 					<label class="block-label" for="email">이메일</label>
 					<Strong> <%=userVo.getEmail() %></Strong>
