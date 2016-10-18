@@ -17,7 +17,7 @@ public class InsertAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
 		String content = request.getParameter("content");
-		String password = request.getParameter("password");
+		String password = request.getParameter("pass");
 		
 		GuestbookVo vo = new GuestbookVo();
 		vo.setName(name);
@@ -28,7 +28,7 @@ public class InsertAction implements Action {
 		dao.insert(vo);
 		
 		//자신에게 request
-		WebUtil.redirect(request,response,"/mysite3/gs");
+		WebUtil.redirect(request,response,"/mysite3/guestbook");
 		
 	}
 

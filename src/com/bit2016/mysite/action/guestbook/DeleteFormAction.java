@@ -15,7 +15,7 @@ public class DeleteFormAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		WebUtil.forward(request, response, "/WEB-INF/views/index.jsp");
+		WebUtil.forward(request, response, "/WEB-INF/views/guestbook/deleteform.jsp");
 		
 //		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/deleteform.jsp");
 //		rd.forward(request, response);
