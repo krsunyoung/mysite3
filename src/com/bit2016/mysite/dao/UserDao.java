@@ -29,12 +29,12 @@ public class UserDao {
 		int result= 0;
 		try{
 			conn = getConnection();
-			String sql ="update users set name = ? and gender = ? where email=?";
+			String sql ="update users set name = ? , gender = ? where no=?";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, vo.getName()	);
 			pstmt.setString(2, vo.getGender());
-			pstmt.setString(3, vo.getEmail());
+			pstmt.setLong(3, vo.getNo());
 			
 			result = pstmt.executeUpdate();
 			

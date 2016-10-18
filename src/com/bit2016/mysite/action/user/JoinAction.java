@@ -30,7 +30,7 @@ public class JoinAction implements Action {
 		UserDao dao = new UserDao();
 		dao.insert(vo);
 		
-		WebUtil.redirect(request, response, "/mysite3/user");
+		WebUtil.redirect(request, response, "/mysite3/user?a=joinsuccess");
 	}
 
 }

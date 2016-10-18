@@ -23,7 +23,7 @@ public class ListAction implements Action {
 		//request 범위 모델데이터 저장
 		request.setAttribute("list", list);
 
-		WebUtil.forward(request, response, "/WEB-INF/views/index.jsp");
+		WebUtil.forward(request, response, "/WEB-INF/views/guestbook/list.jsp");
 		//forwarding(request 연장, request dispatch)
 //		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/index.jsp");
 //		rd.forward(request, response); //Attribute(list)가 request 로 온다. 그안에 저장시킴. 

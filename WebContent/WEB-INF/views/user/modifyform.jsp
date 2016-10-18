@@ -1,3 +1,6 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@page import="com.bit2016.mysite.vo.UserVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
@@ -8,7 +11,8 @@
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="/mysite3/assets/css/user.css" rel="stylesheet" type="text/css">
+<link href="/mysite3/assets/css/user.css" 
+	rel="stylesheet" type="text/css"><!-- ${pageContext.request.contextPath } -->
 </head>
 <body>
 	<div id="container">
@@ -30,16 +34,16 @@
 					
 					<fieldset>
 						<legend>성별</legend>
-						<%
-							if("male".equals(userVo.getGender())){
-						%>
+						<c:choose>				
+						<c:when test="${'male' == param.gender  }">
 						<label>여</label> <input type="radio" name="gender" value="female" >
 						<label>남</label> <input type="radio" name="gender" value="male" checked="checked">
-						<% } else { %>
+						</c:when>
+						<c:otherwise>
 						<label>여</label> <input type="radio" name="gender" value="female" checked="checked">
 						<label>남</label> <input type="radio" name="gender" value="male">
-						<%} %>
-						
+						</c:otherwise>
+						</c:choose>
 					</fieldset>
 					
 					<input type="submit" value="수정하기">
@@ -50,4 +54,9 @@
 		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
 	</div>
 </body>
+<c:if test="${'success' == param.update }">
+<script > 
+alert("성공 정보수정")
+</script>
+</c:if>
 </html>

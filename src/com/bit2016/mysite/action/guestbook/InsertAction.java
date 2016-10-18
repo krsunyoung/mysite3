@@ -28,7 +28,7 @@ public class InsertAction implements Action {
 		dao.insert(vo);
 		
 		//자신에게 request
-		WebUtil.redirect(request,response,"/guestbook2/gs");
+		WebUtil.redirect(request,response,"/mysite3/gs");
 		
 	}
 

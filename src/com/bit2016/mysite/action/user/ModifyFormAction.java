@@ -15,7 +15,8 @@ import com.bit2016.web.util.WebUtil;
 public class ModifyFormAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(true);
+		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		
 		UserVo userVo = new UserDao().get(authUser.getNo());
@@ -25,16 +26,14 @@ public class ModifyFormAction implements Action {
 		userVo.getGender();
 		userVo.getName();*/
 		
-//		UserVo userVo = new UserVo();
-//		userVo.setName(name);
-//		userVo.setGender(gender);
-//		userVo.setEmail(email);
 		
 		request.setAttribute("userVo", userVo);
 		
-		WebUtil.redirect(request, response, "/mysite3/main");
-		//WebUtil.forward(request, response, "/WEB-INF/views/user/modifyform.jsp");
+//		WebUtil.redirect(request, response, "/mysite3/user?a=modifyform.jsp");
+		WebUtil.forward(request, response, "/WEB-INF/views/user/modifyform.jsp");
 	}
+	
+	
 
 	
 
