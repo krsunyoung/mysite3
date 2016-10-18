@@ -12,7 +12,7 @@ import com.bit2016.mysite.action.guestbook.GuestbookActionFactory;
 import com.bit2016.web.Action;
 import com.bit2016.web.ActionFactory;
 
-@WebServlet("/gs")
+@WebServlet("/guestbook")
 public class GuestbookServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

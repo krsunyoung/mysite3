@@ -1,3 +1,6 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
 	String result = request.getParameter("result");
@@ -7,14 +10,14 @@
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="/mysite3/assets/css/user.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/assets/css/user.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div id="container">
 		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include>
 		<div id="content">
 			<div id="user">
-				<form id="login-form" name="loginform" method="post" action="/mysite3/user">
+				<form id="login-form" name="loginform" method="post" action="${pageContext.request.contextPath }/user">
 					<input type="hidden" name="a" value="login"/>
 					<label class="block-label" for="email">이메일</label>
 					<input id="email" name="email" type="text" value="">
