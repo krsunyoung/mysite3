@@ -39,13 +39,10 @@
 						<table width=510 border=1>
 							<tr>
 								<td>[${count-status.index }]</td>
-								<td>[${vo.no }]</td>
 								<td>[${vo.name }]</td>
 								<td>[${vo.req_date }]</td>
 								<td>
-								<a href="${pageContext.request.contextPath }/guestbook?a=deleteform&no=${vo.no }">
-								
-									삭제			</a>
+								<a href="${pageContext.request.contextPath }/guestbook?a=deleteform&no=${vo.no }"> 삭제  </a>
 								</td>
 							</tr>
 							<tr>

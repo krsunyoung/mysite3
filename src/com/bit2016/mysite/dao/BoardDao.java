@@ -2,6 +2,7 @@ package com.bit2016.mysite.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.bit2016.mysite.vo.BoardVo;
+import com.bit2016.mysite.vo.GuestbookVo;
 
 public class BoardDao {
 	private Connection getConnection() throws SQLException {
@@ -25,6 +27,7 @@ public class BoardDao {
 
 		return conn;
 	}
+	
 	
 	public List<BoardVo> getList(){
 		List<BoardVo> list = new ArrayList<BoardVo>();
@@ -69,5 +72,29 @@ public class BoardDao {
 			System.out.println("error :"+e);
 		}
 		return list;
+	}
+	public void insert(BoardVo vo) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = getConnection();
+			String sql = "insert into board VALUES(guestbook_seq.nextval, ?, ?, ?, sysdate)";
+
+			pstmt = conn.prepareStatement(sql);
+
+			
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			System.out.println("error : " + e);
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("error : " + e);
+			}
+		}
 	}
 }

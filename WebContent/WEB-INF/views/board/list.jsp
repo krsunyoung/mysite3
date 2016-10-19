@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<c:set var="num" value="${param.no }"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,7 +53,7 @@
 					</ul>
 				</div>
 				<div class="bottom">
-					<c:if test="${not empty authser }">
+					<c:if test="${not empty authUser }">
 					<a href="${pageContext.request.contextPath }/board?a=write" id="new-book">글쓰기</a>
 					</c:if>
 				</div>

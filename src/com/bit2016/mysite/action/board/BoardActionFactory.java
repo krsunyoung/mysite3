@@ -8,9 +8,13 @@ public class BoardActionFactory extends ActionFactory {
 	@Override
 	public Action getAction(String actionName) {
 		Action action = null;
-		
-		action = new ListAction();
-		
+		if("write".equals(actionName)){
+			action = new WriteformAction();
+		}else if("write1".equals(actionName)){
+			action = new WriteAction();
+		}else{
+			action = new ListAction();
+		}
 		return new ListAction();
 	}
 
