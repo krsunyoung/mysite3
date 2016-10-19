@@ -3,9 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@page import="com.bit2016.mysite.vo.UserVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-	UserVo userVo = (UserVo)request.getAttribute("userVo");
-%>
+
 <!doctype html>
 <html>
 <head>

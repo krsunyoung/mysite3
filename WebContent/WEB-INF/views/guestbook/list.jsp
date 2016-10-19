@@ -43,10 +43,9 @@
 								<td>[${vo.name }]</td>
 								<td>[${vo.req_date }]</td>
 								<td>
-								<a href="/mysite3/guestbook?a=deleteform&no=${vo.no }">
+								<a href="${pageContext.request.contextPath }/guestbook?a=deleteform&no=${vo.no }">
 								
 									삭제			</a>
-								</form>
 								</td>
 							</tr>
 							<tr>

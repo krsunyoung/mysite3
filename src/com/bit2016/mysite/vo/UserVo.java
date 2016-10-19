@@ -6,6 +6,9 @@ public class UserVo {
 	private String email;
 	private String password;
 	private String gender;
+
+	
+
 	public Long getNo() {
 		return no;
 	}

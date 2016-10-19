@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>  
 <%@ page contentType="text/html;charset=UTF-8" %>
-<c:set var="num" value="${param.no }"/>
+
 <!doctype html>
 <html>
 <head>
