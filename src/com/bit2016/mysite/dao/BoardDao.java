@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.bit2016.mysite.vo.BoardVo;
-import com.bit2016.mysite.vo.GuestbookVo;
 
 public class BoardDao {
 	private Connection getConnection() throws SQLException {
@@ -27,7 +26,32 @@ public class BoardDao {
 
 		return conn;
 	}
-	
+	public void add(BoardVo vo) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = getConnection();
+			String sql = "insert into board values (board_seq.nextval, ? , ? , sysdate , 0 , nvl((select max(group_no) from board),0)+1, 1, 0, ?))";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, vo.getTitle() );
+			pstmt.setString(2, vo.getContent());
+			
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			System.out.println("error : " + e);
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("error : " + e);
+			}
+		}
+	}
 	
 	public List<BoardVo> getList(){
 		List<BoardVo> list = new ArrayList<BoardVo>();

@@ -35,18 +35,17 @@ select count(*) from board;
 --where(3-1)*5+1 <= rownum -- 3은 current page 현재페이지 5가 페이지 사이즈  
 
 --insert1 (새글)
-
+select * from board;
 select * from users;
 select max(group_no) from board;
 
-insert into board values(board_seq.nextval, '안녕','안녕하세요',sysdate,0 ,
-nvl((select max(group_no) from board),0)+1, 1, 0, 12);  
+insert into board values(board_seq.nextval, '안녕','안녕하세요',sysdate,0 , nvl((select max(group_no) from board),0)+1, 1, 0, 1);  
 
 insert into board values(board_seq.nextval, '뭐먹지?','무무무무냉무',sysdate,0 ,
-nvl((select max(group_no) from board),0)+1, 1, 0, 12);
+nvl((select max(group_no) from board),0)+1, 1, 0, 2);
   
 insert into board values(board_seq.nextval, '그만하자','냉무',sysdate,0 ,
-nvl((select max(group_no) from board),0)+1, 1, 0, 12);
+nvl((select max(group_no) from board),0)+1, 1, 0, 21);
 -- 답글
 update board set order_no = order_no +1 where group_no =2 and order_no >1;
 
@@ -54,7 +53,7 @@ insert into board values(board_seq.nextval, '난 탕수육','냉무',sysdate,0 ,
  2, --부모글의 그룹
  2, --부모글의 순서 +1
  1, --부모글 깊이 +1 
- 11);
+ 1);
 
 update board set order_no = order_no +1 where group_no =2 and order_no >2;
 
@@ -62,7 +61,7 @@ insert into board values(board_seq.nextval, '짬뽕','냉무',sysdate,0 ,
  2, --부모글의 그룹
  3, --부모글의 순서 +1
  2, --부모글 깊이 +1 
- 11);
+ 21);
 
 update board set order_no = order_no +1 where group_no =2 and order_no >1; --부모글순서
 
@@ -70,7 +69,7 @@ insert into board values(board_seq.nextval, '안먹어!!!!','냉무',sysdate,0 ,
  2, --부모글의 그룹
  2, --부모글의 순서 +1
  1, --부모글 깊이 +1 
- 11);
+ 1);
  
 delete from board;
 

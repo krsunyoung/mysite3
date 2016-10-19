@@ -22,7 +22,7 @@ public class WriteAction implements Action {
 		BoardVo vo = new BoardVo();
 		
 		BoardDao dao = new BoardDao();
-		dao.insert(vo);
+		dao.add(vo);
 		
 		//자신에게 request
 		WebUtil.redirect(request,response,"/mysite3/board");

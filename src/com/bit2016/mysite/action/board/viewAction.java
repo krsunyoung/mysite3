@@ -9,13 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.bit2016.web.Action;
 import com.bit2016.web.util.WebUtil;
 
-public class WriteformAction implements Action {
+public class viewAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		WebUtil.forward(request, response, "/WEB-INF/views/board/write.jsp");
-		
+
+		WebUtil.forward(request, response, "/WEB-INF/views/board/view.jsp");
 	}
 
 }

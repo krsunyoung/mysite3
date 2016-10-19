@@ -33,7 +33,7 @@
 					<c:forEach items="${list }" var="vo" varStatus="status">
 						<tr>
 							<td>[${count-status.index }]</td>
-							<td class="left"><a href="">${vo.title }</a></td>
+							<td class="left"><a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a></td>
 							<td>${vo.userName }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.regdate }</td>
