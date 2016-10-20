@@ -59,6 +59,38 @@ public class BoardDao {
 		return result == 1;
 	}
 	
+	public boolean reupdate(BoardVo vo){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int result= 0;
+		try{
+			conn = getConnection();
+			String sql ="update board set order_no = ? +1  where group_no=? and order_no > ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, vo.getOrderNo());
+			pstmt.setInt(2, vo.getGroupNo());
+			pstmt.setInt(3, vo.getOrderNo());
+			
+			result = pstmt.executeUpdate();
+			
+		}catch(SQLException e){
+			System.out.println("error : "+e);
+		}finally {
+			try{
+				if(pstmt != null){
+					pstmt.close();
+				}
+				if(conn != null){
+					conn.close();
+				}
+			}catch(SQLException e){
+				System.out.println("error : "+e);
+				
+			}
+		}
+		return result == 1;
+	}
 	
 	public BoardVo get(Long no){
 		Connection conn = null;
@@ -67,7 +99,7 @@ public class BoardDao {
 		BoardVo vo = null;
 		try {
 			conn = getConnection();
-			String sql = "select no, title, content, users_no from board where no= ?";
+			String sql = "select no, title, content, users_no, order_no, group_no, depth from board where no= ?";
 			
 			pstmt=conn.prepareStatement(sql);
 			
@@ -80,12 +112,18 @@ public class BoardDao {
 				String title = rs.getString(2);
 				String content = rs.getString(3);
 				Long userNo = rs.getLong(4);
+				int orderNo = rs.getInt(5);
+				int groupNo = rs.getInt(6);
+				int depth = rs.getInt(7);
 				
 				vo = new BoardVo();
 				vo.setNo(no);
 				vo.setTitle(title);
 				vo.setContent(content);
 				vo.setUserNo(userNo);
+				vo.setOrderNo(orderNo);
+				vo.setGroupNo(groupNo);
+				vo.setDepth(depth);
 							
 			}
 		} catch (SQLException e) {
@@ -233,6 +271,37 @@ public class BoardDao {
 		}
 		return list;
 	}
+	public void reinsert(BoardVo vo) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = getConnection();
+			String sql = "insert into board values(board_seq.nextval, ? ,?,sysdate,0 , ? , ?+1, ?+1, ?) ";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, vo.getTitle() );
+			pstmt.setString(2, vo.getContent());
+			pstmt.setInt(3, vo.getGroupNo());
+			pstmt.setInt(4, vo.getOrderNo());
+			pstmt.setInt(5, vo.getDepth());
+			pstmt.setLong(6, vo.getUserNo());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("error : " + e);
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("error : " + e);
+			}
+		}
+	}
+	
 	public void insert(BoardVo vo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

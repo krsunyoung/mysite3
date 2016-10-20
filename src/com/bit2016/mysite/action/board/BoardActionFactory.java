@@ -20,6 +20,10 @@ public class BoardActionFactory extends ActionFactory {
 			action = new ModifyformAction();
 		}else if("modify".equals(actionName)){
 			action = new ModifyAction();
+		}else if("rewrite".equals(actionName)){
+			action = new RewriteAction();
+		}else if("rewrite1".equals(actionName)){
+			action = new Rewrite1Action();
 		}else{
 			action = new ListAction();
 		}
