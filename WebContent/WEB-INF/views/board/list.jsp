@@ -31,9 +31,24 @@
 					</tr>
 					<c:set var="count" value="${fn:length(list) }"/> 
 					<c:forEach items="${list }" var="vo" varStatus="status">
-						<tr>
+						<tr>   
 							<td>[${count-status.index }]</td>
-							<td class="left"><a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a></td>
+							 <c:choose> 
+								<c:when test="${vo.depth <= 0}"> 
+									<td class="left" >
+									<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a></td>
+								</c:when>
+							<c:otherwise>
+									<td class="left" style="padding-left:${20*vo.depth}px" >
+									<img src="${pageContext.request.contextPath }/assets/images/reply.png"> 
+									<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a></td>
+								</c:otherwise>
+								
+							</c:choose>							
+							
+							
+							
+							
 							<td>${vo.userName }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.regdate }</td>

@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.bit2016.mysite.vo.BoardVo;
-import com.bit2016.mysite.vo.UserVo;
 
 public class BoardDao {
 	private Connection getConnection() throws SQLException {
@@ -198,8 +197,8 @@ public class BoardDao {
 			conn = getConnection();
 			stmt = conn.createStatement();
 			String sql =
-				"select  no, title, hit , reg_date, name , users_no, rownum as rn"+
-				" from (select b.no, b.title, b.hit, to_char(reg_date,'yyyy-mm-dd hh:mi:ss') as reg_date, u.name, b.USERS_NO "
+				"select  no, title, hit , reg_date, name , users_no, depth, rownum as rn"+
+				" from (select b.no, b.title, b.hit, to_char(reg_date,'yyyy-mm-dd hh:mi:ss') as reg_date, u.name, b.USERS_NO, b.DEPTH   "
 					+" from board b, USERS u "
 					+" where b.USERS_NO=u.NO "
 					+" order by group_no desc, order_no asc)";
@@ -213,6 +212,7 @@ public class BoardDao {
 				String regdate=rs.getString(4);
 				String userName = rs.getString(5);
 				Long userNo = rs.getLong(6);
+				int depth = rs.getInt(7);
 						
 				BoardVo vo = new BoardVo();
 				vo.setNo(no);
@@ -221,6 +221,7 @@ public class BoardDao {
 				vo.setRegdate(regdate);
 				vo.setUserName(userName);
 				vo.setUserNo(userNo);
+				vo.setDepth(depth);
 				
 				
 				//list에 담아놓기
