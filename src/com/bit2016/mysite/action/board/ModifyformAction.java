@@ -5,13 +5,14 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.bit2016.mysite.dao.BoardDao;
 import com.bit2016.mysite.vo.BoardVo;
 import com.bit2016.web.Action;
 import com.bit2016.web.util.WebUtil;
 
-public class viewAction implements Action {
+public class ModifyformAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -25,10 +26,9 @@ public class viewAction implements Action {
 		
 		//request 범위 모델데이터 저장
 		request.setAttribute("vo", boardvo);
+		WebUtil.forward(request, response, "/WEB-INF/views/board/modify.jsp");
 		
 		
-		
-		WebUtil.forward(request, response, "/WEB-INF/views/board/view.jsp");
 	}
 
 }

@@ -39,7 +39,7 @@ select * from board;
 select * from users;
 select max(group_no) from board;
 
-insert into board values(board_seq.nextval, '안녕','안녕하세요',sysdate,0 , nvl((select max(group_no) from board),0)+1, 1, 0, 1);  
+insert into board values(board_seq.nextval, '안녕','안녕하세요',sysdate,0 , nvl((select max(group_no) from board),0)+1, 1, 0, 11);  
 
 insert into board values(board_seq.nextval, '뭐먹지?','무무무무냉무',sysdate,0 ,
 nvl((select max(group_no) from board),0)+1, 1, 0, 2);

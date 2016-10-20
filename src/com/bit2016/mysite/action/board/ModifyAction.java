@@ -8,36 +8,30 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.bit2016.mysite.dao.BoardDao;
-import com.bit2016.mysite.dao.UserDao;
 import com.bit2016.mysite.vo.BoardVo;
-import com.bit2016.mysite.vo.UserVo;
 import com.bit2016.web.Action;
 import com.bit2016.web.util.WebUtil;
 
-public class WriteAction implements Action {
+public class ModifyAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		HttpSession session = request.getSession();
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		UserVo userVo = new UserDao().get(authUser.getNo());
-		
+		String no = request.getParameter("no");
 		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		
+		String content=request.getParameter("content");
 		
 		BoardVo vo = new BoardVo();
+		vo.setNo(Long.parseLong(no));
 		vo.setTitle(title);
 		vo.setContent(content);
-		vo.setUserNo(userVo.getNo());
 		
 		
-		BoardDao dao = new BoardDao();
-		dao.insert(vo);
+		new BoardDao().update(vo);
 		
-		//자신에게 request
-		WebUtil.redirect(request,response,"/mysite3/board");
+		HttpSession session = request.getSession(true);
+		session.setAttribute("boardvo", vo);
+//		
+	WebUtil.redirect(request, response, "/mysite3/board?a=view&no=" + no);
 	}
 
 }

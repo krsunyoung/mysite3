@@ -16,7 +16,7 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="" method="post">
+				<form id="search_form" action="" method="get">
 					<input type="text" id="kwd" name="kwd" value=""> <input
 						type="submit" value="찾기">
 				</form>
@@ -37,7 +37,12 @@
 							<td>${vo.userName }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.regdate }</td>
-							<td><a href="" class="del">삭제</a></td>
+							
+							<td>
+							<c:if test = "${vo.userNo == authUser.no }">
+							<a href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no }" class="del">삭제</a></c:if>
+							</td>
+							
 						</tr>
 						</c:forEach>
 				</table>

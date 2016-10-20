@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.bit2016.mysite.vo.BoardVo;
+import com.bit2016.mysite.vo.UserVo;
 
 public class BoardDao {
 	private Connection getConnection() throws SQLException {
@@ -26,18 +27,151 @@ public class BoardDao {
 
 		return conn;
 	}
-	public void add(BoardVo vo) {
+	public boolean update(BoardVo vo){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int result= 0;
+		try{
+			conn = getConnection();
+			String sql ="update board set title = ? , content = ?  where no=?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setString(2, vo.getContent());
+			pstmt.setLong(3, vo.getNo());
+			
+			result = pstmt.executeUpdate();
+			
+		}catch(SQLException e){
+			System.out.println("error : "+e);
+		}finally {
+			try{
+				if(pstmt != null){
+					pstmt.close();
+				}
+				if(conn != null){
+					conn.close();
+				}
+			}catch(SQLException e){
+				System.out.println("error : "+e);
+				
+			}
+		}
+		return result == 1;
+	}
+	
+	
+	public BoardVo get(Long no){
+		Connection conn = null;
+		PreparedStatement pstmt=null;
+		ResultSet rs = null;
+		BoardVo vo = null;
+		try {
+			conn = getConnection();
+			String sql = "select no, title, content, users_no from board where no= ?";
+			
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, no);
+			
+			rs=pstmt.executeQuery();
+			
+			if( rs.next()){
+				no = rs.getLong(1);
+				String title = rs.getString(2);
+				String content = rs.getString(3);
+				Long userNo = rs.getLong(4);
+				
+				vo = new BoardVo();
+				vo.setNo(no);
+				vo.setTitle(title);
+				vo.setContent(content);
+				vo.setUserNo(userNo);
+							
+			}
+		} catch (SQLException e) {
+			System.out.println("error :" + e);
+		} finally{
+			try{
+				
+				if(rs !=null){
+					rs.close();
+				}
+				if(pstmt !=null){
+					pstmt.close();
+				}
+				if(conn !=null){
+					conn.close();
+				}
+			}catch(SQLException e){
+				System.out.println("error :" + e);
+				
+			}
+		}
+		
+		
+		return vo;
+		
+	}
+	
+	
+	public void select(BoardVo vo) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+			String sql = "select title, content from board ";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setLong(1, vo.getNo());
+			
+			rs= pstmt.executeQuery(sql);
+			
+//			String title = rs.getString(1);
+//			String content=rs.getString(2);
+//					
+//			vo.setTitle(title);
+//			vo.setUserName(content);
+			if(rs.next()){
+				
+				String title = rs.getString(2);
+				String content = rs.getString(2);
+				
+				BoardVo uservo = new BoardVo();
+				uservo.setTitle(title);
+				uservo.setContent(content);
+				
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("error : " + e);
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("error : " + e);
+			}
+		}
+	}
+	
+	
+	
+	public void delete(BoardVo vo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
 			conn = getConnection();
-			String sql = "insert into board values (board_seq.nextval, ? , ? , sysdate , 0 , nvl((select max(group_no) from board),0)+1, 1, 0, ?))";
+			String sql = "delete from board where no = ? ";
 
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setString(1, vo.getTitle() );
-			pstmt.setString(2, vo.getContent());
-			
+			pstmt.setLong(1, vo.getNo());
+
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -52,6 +186,7 @@ public class BoardDao {
 			}
 		}
 	}
+
 	
 	public List<BoardVo> getList(){
 		List<BoardVo> list = new ArrayList<BoardVo>();
@@ -102,13 +237,16 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		try {
 			conn = getConnection();
-			String sql = "insert into board VALUES(guestbook_seq.nextval, ?, ?, ?, sysdate)";
+			String sql = "insert into board values(board_seq.nextval, ? ,?,sysdate,0 , nvl((select max(group_no) from board),0)+1, 1, 0, ?) ";
 
 			pstmt = conn.prepareStatement(sql);
 
+			pstmt.setString(1, vo.getTitle() );
+			pstmt.setString(2, vo.getContent());
+			pstmt.setLong(3, vo.getUserNo());
 			
 			pstmt.executeUpdate();
-
+			
 		} catch (SQLException e) {
 			System.out.println("error : " + e);
 		} finally {
