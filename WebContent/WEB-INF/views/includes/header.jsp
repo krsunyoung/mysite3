@@ -4,7 +4,7 @@
 <%@page import="com.bit2016.mysite.vo.UserVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 		<div id="header">
-			<h1>MySite</h1>
+			<h1 style="color:#2256A1">SUN</h1>
 			<ul>
 			<c:choose>
 				<c:when test="${empty authUser }" >

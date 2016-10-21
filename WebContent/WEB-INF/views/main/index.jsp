@@ -8,6 +8,11 @@
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="${pageContext.request.contextPath }/assets/css/main.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+body{
+	background-color:#CDD1EE
+}
+</style>
 </head>
 <body>
 	<div id="container">
@@ -16,10 +21,10 @@
 			<div id="content">
 			
 				<div id="site-introduction">
-					<img id="profile" src="http://imgnews.naver.net/image/003/2016/10/17/NISI20161017_0012290515_web_99_20161017084810.jpg?type=w680">
+					<img id="profile" src="http://file2.nocutnews.co.kr/newsroom/image/2014/11/25/20141125152542314728.jpg">
 					<br/>
-					<h2>안녕하세요. SUN SITE에 오신 것을 환영합니다.</h2>
-					<p>
+					<h2 style="color:#2256A1">안녕하세요. SUN SITE에 오신 것을 환영합니다.</h2>
+					<p style="color:#343434">
 						이 사이트는  웹 프로그램밍 실습과제 예제 사이트입니다.<br>
 						메뉴는  사이트 소개, 방명록, 게시판이 있구요. JAVA 수업 + 데이터베이스 수업 + 웹프로그래밍 수업 배운 거 있는거 없는 거 다 합쳐서
 						만들어 놓은 사이트 입니다.<br><br>
