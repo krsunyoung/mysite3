@@ -83,7 +83,6 @@ public class GuestbookDao {
 			}
 		}
 	}
-
 	public List<GuestbookVo> getList(){
 		List<GuestbookVo> list = new ArrayList<GuestbookVo>();
 		Connection conn = null;
@@ -95,6 +94,48 @@ public class GuestbookDao {
 			stmt = conn.createStatement();
 			String sql = "select no, name, content, password ,to_char(req_date,'yyyy-mm-dd hh:mi:ss') from GUESTBOOK order by req_date desc";
 			rs = stmt.executeQuery(sql);
+			
+			while(rs.next()){
+				Long no = rs.getLong(1);
+				String Name = rs.getString(2);
+				String content = rs.getString(3);
+				String password = rs.getString(4);
+				String req_date=rs.getString(5);
+				
+				GuestbookVo vo = new GuestbookVo();
+				vo.setNo(no);
+				vo.setName(Name);
+				vo.setContent(content);
+				vo.setPassword(password);
+				vo.setReq_date(req_date);
+				
+				//list에 담아놓기
+				list.add(vo);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("error :"+e);
+		}
+		return list;
+	}
+
+	public List<GuestbookVo> getList(int page){
+		List<GuestbookVo> list = new ArrayList<GuestbookVo>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+			String sql = 
+			"select * from(select a.*, rownum rn "
+				+ " from(select no, name, content, password ,to_char(req_date,'yyyy-mm-dd hh:mi:ss') "
+					+ " from GUESTBOOK order by req_date desc) a) "+
+			"  where (?-1)*5+1<=rn and rn <= ?*5";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, page);
+			pstmt.setInt(2, page);
+			rs = pstmt.executeQuery();
 			
 			while(rs.next()){
 				Long no = rs.getLong(1);

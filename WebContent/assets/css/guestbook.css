@@ -14,6 +14,13 @@
 #guestbook ul		{ width:100%; margin-top:20px }
 #guestbook ul li	{ width:100%; margin-top:10px }
 
+#guestbook ul li {
+    width: 100%;
+    margin-top: 20px;
+    background: url(/mysite3/assets/images/delete2.png) 0 20px no-repeat;
+    padding-left: 50px;
+    position: relative;
+}
 
 #guestbook.delete-form	{ height:200px }
 #guestbook.delete-form form {
