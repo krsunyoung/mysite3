@@ -19,23 +19,25 @@ public class AjaxdeleteAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String no = request.getParameter("no");
+		String password = request.getParameter("password");
+		
+		GuestbookVo vo = new GuestbookVo();
+		vo.setNo(Long.parseLong(no));
+		vo.setPassword(password);
 		
 		
 		GuestbookDao dao = new GuestbookDao();
-		GuestbookVo vo = dao.get(Long.parseLong(no));
-		
+		//vo = dao.get(Long.parseLong(no));
+		boolean result= dao.delete(vo);
 		
 		Map<String, Object> map =new HashMap<String, Object>();
 		map.put("result", "success");
-		if(vo == null){
-			map.put("data", "not exist");
-		}else {
-			map.put("data", "exist");
-		}
+			map.put("data", result ? "not exist":"exit");
 		
 		response.setContentType("application/json; charset=utf-8");
 		JSONObject jsonObject = JSONObject.fromObject(map);
 		response.getWriter().println(jsonObject.toString());
+		
 	}
 
 }

@@ -82,6 +82,7 @@ $(function(){
 		    	  var no =$("#password-id").val();
 		    	  var password =$("#password").val();
 		    	  console.log(no);
+		    	  console.log(password);
 		    	  $.ajax({
 		    			url :"${pageContext.request.contextPath }/api/guestbook?a=ajax-delete&no="+no+"&password="+password,
 		    			type : "get",
@@ -94,11 +95,13 @@ $(function(){
 		    					isEnd=true;
 		    					return;
 		    				}
-		    				//redering
+		    				dialog.dialog( "close" );
 		    				$(response.data).each(function(index, vo){
 		    					render(vo);				
 		    				});
 		    				
+		    				$("#gb-"+no).remove(); // html에 li 를 삭제 자동적으로 해주는것. 
+		    			   	
 		    			}, error: function(jqXHR, status, e){
 		    				console.error(status +":"+e);
 		    			}
@@ -109,8 +112,9 @@ $(function(){
 		      }
 		    },
 		    close: function() {
-		      form[ 1 ].reset();
-		      allFields.removeClass( "error" );
+		    // $(this).dialog("close");
+		    return;
+		     
 		    }
 		  });
 		dialog.dialog("open");

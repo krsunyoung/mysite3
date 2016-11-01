@@ -1,6 +1,7 @@
 package com.bit2016.mysite.controller.api;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bit2016.mysite.action.guestbook.GuestbookActionFactory;
-import com.bit2016.mysite.action.user.UserActionFactory;
 import com.bit2016.web.Action;
 import com.bit2016.web.ActionFactory;
 

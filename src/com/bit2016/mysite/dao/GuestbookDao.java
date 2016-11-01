@@ -26,7 +26,8 @@ public class GuestbookDao {
 
 		return conn;
 	}
-	public void delete(GuestbookVo vo) {
+	public boolean delete(GuestbookVo vo) {
+		boolean result = true;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -51,6 +52,7 @@ public class GuestbookDao {
 				System.out.println("error : " + e);
 			}
 		}
+		return result ;
 	}
 	public GuestbookVo get(Long no){
 		GuestbookVo vo = null;
@@ -59,20 +61,21 @@ public class GuestbookDao {
 		ResultSet rs = null;
 		try {
 			conn = getConnection();
-			String sql = "select no, name from guestbook where no=? and password=? ";
+			String sql = "select no, name,content from guestbook where no=? and password=? ";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setLong(1, no);
-	//		pstmt.setString(2, password);
 			
 			rs =pstmt.executeQuery();
 			
 			if(rs.next()){
-				no = rs.getLong(1);
-		//		password=rs.getString(2);
+				//no = rs.getLong(1);
 			
 				vo = new GuestbookVo();
-				vo.setNo(no);
+				vo.setNo(rs.getLong(1));
+				vo.setName(rs.getString(2));
+				vo.setContent(rs.getString(3));
+				
 			}
 		} catch (SQLException e) {
 			System.out.println("error :" +e);
