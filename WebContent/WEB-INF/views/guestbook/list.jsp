@@ -40,6 +40,15 @@
 				<c:set var="count" value="${fn:length(list) }"/> 
 				<c:forEach items="${list }" var="vo" varStatus="status">
 					<li>
+					<li>
+							<strong>${vo.name }</strong>
+							<p>
+								${vo.content }
+							</p>
+							<strong>${vo.req_date }</strong>
+							<a href="/mysite3/guestbook?a=deleteform&amp;no=${vo.no }" title="삭제">삭제</a>
+						</li>
+					 <!-- 
 						<table border=1 class="read">
 							<tr>
 								<td>[${count-status.index }]</td>
@@ -54,6 +63,7 @@
 								<td colspan=3>${fn:replace(vo.content, newLine, "<br>") }</td>
 							</tr>
 						</table>
+					 -->
 						<br>
 					</li>
 				</c:forEach>

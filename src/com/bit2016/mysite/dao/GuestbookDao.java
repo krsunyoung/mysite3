@@ -52,10 +52,53 @@ public class GuestbookDao {
 			}
 		}
 	}
-
-	public void insert(GuestbookVo vo) {
+	public GuestbookVo get(Long no){
+		GuestbookVo vo = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+			String sql = "select no, name from guestbook where no=? and password=? ";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, no);
+	//		pstmt.setString(2, password);
+			
+			rs =pstmt.executeQuery();
+			
+			if(rs.next()){
+				no = rs.getLong(1);
+		//		password=rs.getString(2);
+			
+				vo = new GuestbookVo();
+				vo.setNo(no);
+			}
+		} catch (SQLException e) {
+			System.out.println("error :" +e);
+		}finally{
+			try{
+				if(rs != null){
+					rs.close();
+				}
+				if(pstmt != null){
+					pstmt.close();
+				}
+				if(conn != null){
+					conn.close();
+				}
+			}catch (SQLException e){
+				System.out.println("error :" +e);
+			}
+		}
+		return vo;
+	}
+	public Long insert(GuestbookVo vo) {
+		Long no = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		Statement stmt = null;
+		ResultSet rs = null;
 		try {
 			conn = getConnection();
 			String sql = "insert into GUESTBOOK VALUES(guestbook_seq.nextval, ?, ?, ?, sysdate)";
@@ -70,6 +113,15 @@ public class GuestbookDao {
 			pstmt.setString(3, vo.getPassword());
 			
 			pstmt.executeUpdate();
+			
+			//primary key(guestbook_seq.currval) 받아오기
+			stmt=conn.createStatement();
+			
+			sql = "select guestbook_seq.currval from dual";
+			rs =stmt.executeQuery(sql);
+			if(rs.next()){
+				no = rs.getLong(1);
+			}
 
 		} catch (SQLException e) {
 			System.out.println("error : " + e);
@@ -82,6 +134,7 @@ public class GuestbookDao {
 				System.out.println("error : " + e);
 			}
 		}
+		return no;
 	}
 	public List<GuestbookVo> getList(){
 		List<GuestbookVo> list = new ArrayList<GuestbookVo>();
@@ -118,7 +171,7 @@ public class GuestbookDao {
 		}
 		return list;
 	}
-
+	
 	public List<GuestbookVo> getList(int page){
 		List<GuestbookVo> list = new ArrayList<GuestbookVo>();
 		Connection conn = null;
