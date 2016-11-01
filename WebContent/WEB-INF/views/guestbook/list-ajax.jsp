@@ -109,7 +109,7 @@ $(function(){
 		      }
 		    },
 		    close: function() {
-		      form[ 0 ].reset();
+		      form[ 1 ].reset();
 		      allFields.removeClass( "error" );
 		    }
 		  });
